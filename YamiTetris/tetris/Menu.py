@@ -63,12 +63,10 @@ class Menu:
     def reset(self):  ## 뒤로 갈때 보여줄 목록들
         self.surface = pygame.display.set_mode((self.w, self.h), RESIZABLE)
         self.menu = pygame_menu.Menu(self.h, self.w, '', theme=mytheme)
-        Sound.click.play()
         self.page=0
         mytheme.widget_margin=self.margin3
         Var.click.play()
         self.page=Var.initial_page
-
         self.menu.clear()
         self.menu.add_vertical_margin(self.margin)
         self.menu.add_button('   Select mode   ', self.show_game,font_size=self.size)
@@ -82,43 +80,26 @@ class Menu:
 
         self.menu.clear()
         mytheme.widget_margin=self.margin2
-
         self.menu.add_vertical_margin(self.margin)
-
-
         self.menu.add_label("    --Start game--    ",max_char=0,selectable=False,font_size=self.size)
-
         self.menu.add_vertical_margin(15)
-
         self.menu.add_button('      Single mode      ', self.start_the_game,font_size=self.size)
-
         self.menu.add_button('       MiNi mode       ', self.start_the_Mini,font_size=self.size)
-
         self.menu.add_button('    Twohands mode   ', self.start_the_Twohands,font_size=self.size)
-
         self.menu.add_button('         Ai mode         ', self.start_the_Ai,font_size=self.size)
-
         self.menu.add_button('           back            ', self.reset,font_size=self.size)
 
     def show_rank(self):  ## 랭크 들어가면 나오는 목록들기
         self.page=2
-        Sound.click.play()
         mytheme.widget_margin=self.margin2
         Var.click.play()
-
         self.menu.clear()
         self.menu.add_vertical_margin(self.margin)
-
         self.menu.add_label("     --Show Rank--     ", max_char=0, selectable=False,font_size=self.size)
-
         self.menu.add_vertical_margin(15)
-
         self.menu.add_button('      Single mode      ', self.Single_the_rank,font_size=self.size)
-
         self.menu.add_button('    Twohands mode   ', self.Twohands_the_rank,font_size=self.size)
-
         self.menu.add_button('       MiNi mode       ', self.Mini_the_rank,font_size=self.size)
-
         self.menu.add_button('           back            ', self.reset,font_size=self.size)
 
 

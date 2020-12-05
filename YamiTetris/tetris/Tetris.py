@@ -33,9 +33,9 @@ class Tetris:
         if event_key == K_DOWN or event_key == K_s:
             self.board.drop_piece(mode)
         elif event_key == K_LEFT or event_key == K_a:
-            self.board.move_piece(dx=-1, dy=0)
+            self.board.move_piece(dx=-Var.x_move_scale, dy=0)
         elif event_key == K_RIGHT or event_key == K_d:
-            self.board.move_piece(dx=1, dy=0)
+            self.board.move_piece(dx=Var.x_move_scale, dy=0)
         elif event_key == K_UP or event_key == K_w:
             self.board.rotate_piece()
         elif event_key == K_SPACE:
@@ -278,9 +278,9 @@ class Tetris:
                             else:
                                 self.board.display_width = (self.board.width + self.board.status_size) * self.board.block_size
                             self.board.status_width = self.board.block_size * self.board.status_size
-                            self.board.font_size_big_in = int(self.board.font_size_big*font_resize)
-                            self.board.font_size_middle_in = int(self.board.font_size_middle*font_resize)
-                            self.board.font_size_small_in = int(self.board.font_size_small*font_resize)
+                            self.board.font_size_big_in = int(Var.font_size_big*font_resize)
+                            self.board.font_size_middle_in = int(Var.font_size_middle*font_resize)
+                            self.board.font_size_small_in = int(Var.font_size_small*font_resize)
                             self.board.display_height = self.board.height * self.board.block_size
 
                         elif resize> 1.001 or resize<1.0:

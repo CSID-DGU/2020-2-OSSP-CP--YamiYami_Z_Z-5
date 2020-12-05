@@ -111,10 +111,6 @@ class Var:
     user_per_speed = 40
     AI_per_speed = int(user_per_speed / 2)
 
-
-
-
-
     basic_block_size = 25
     basic_next_block_size_rate = 0.6
     mini_block_size = int(basic_block_size*5/7)
@@ -134,6 +130,8 @@ class Var:
 
     menu_display_w = 600
     menu_display_h = 600
+
+
 
 
 
