@@ -5,10 +5,10 @@ from Tetris import *
 from Database import *
 
 menu_image = pygame_menu.baseimage.BaseImage(
-    image_path='assets/images/메인메뉴2.PNG',
+    image_path='assets/images/메인메뉴2.png',
     drawing_mode=pygame_menu.baseimage.IMAGE_MODE_FILL	)
 widget_image = pygame_menu.baseimage.BaseImage(
-    image_path='assets/images/메인위젯.PNG',
+    image_path='assets/images/메인위젯.png',
     drawing_mode=pygame_menu.baseimage.IMAGE_MODE_FILL)
 
 mytheme=pygame_menu.themes.THEME_ORANGE.copy()
