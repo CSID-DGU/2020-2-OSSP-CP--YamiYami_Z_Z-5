@@ -247,7 +247,7 @@ class Var:
     mini_display_width = (mini_width + mini_status_size) * mini_block_size
 
     two_width = 20  # 맵의 좌에서 우로 사이즈
-    two_height = 18  # 맵 위에서 아래로 사이즈
+    two_height = 18  # 맵git  위에서 아래로 사이즈
     two_block_size = basic_block_size   # 바꾸면 맵 블럭크기 변경
     two_status_size = 8  #상태 바 사이즈 (블럭의 개수 기준으로 )
     two_display_width = (two_width + two_status_size) * two_block_size
