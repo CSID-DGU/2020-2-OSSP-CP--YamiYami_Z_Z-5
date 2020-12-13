@@ -166,7 +166,7 @@ class Tetris:
 
             pygame.display.set_mode((self.board.display_width, self.board.display_height), RESIZABLE)
 
-    def vdresize(self, resize, evwidth):
+    def vdresize(self, resize, evheight):
         self.max_height = Var.infoObject.current_h - Var.bar_size
         font_resize = Var.font_resize
         if (self.board.height * int(self.board.block_size * resize) < self.min_height):
@@ -200,6 +200,7 @@ class Tetris:
 
 
         elif (self.board.height * int(self.board.block_size * resize) > (self.max_height)):
+            print('ddd')
             resize = self.max_height / self.board.display_height
             self.board.block_size = int(self.board.block_size * resize)
             if self.mode == 'ai':
@@ -208,25 +209,24 @@ class Tetris:
                 self.board.display_width = (self.board.width + self.board.status_size) * self.board.block_size
             self.board.status_width = self.board.block_size * self.board.status_size
             self.board.display_height = self.board.height * self.board.block_size
-
+            print('fff')
             pygame.display.set_mode((self.board.display_width, self.board.display_height), RESIZABLE)
 
             font_resize = self.max_height / Var.display_min_height
             self.board.font_size_big_in = int(Var.font_size_big * font_resize)
             self.board.font_size_middle_in = int(Var.font_size_middle * font_resize)
             self.board.font_size_small_in = int(Var.font_size_small * font_resize)
-            info = pygame.display.Info()
+            print('eee')
 
         elif resize > Var.resize_cut_up or resize < Var.resize_cut_down:
             if self.mode == 'basic':
-                font_resize = evwidth / (Var.basic_block_size * (self.board.width + self.board.status_size))
+                font_resize = evheight / Var.display_min_height
             if self.mode == 'mini':
-                font_resize = evwidth / (Var.mini_block_size * (self.board.width + self.board.status_size))
+                font_resize = evheight / (Var.mini_block_size * self.board.height)
             if self.mode == 'two':
-                font_resize = evwidth / (Var.basic_block_size * (self.board.width + self.board.status_size))
+                font_resize = evheight / Var.display_min_height
             if self.mode == 'ai':
-                font_resize = evwidth / (Var.basic_block_size * (
-                            self.board.width * Var.ai_diplay_width_rate + self.board.status_size * Var.two_board_two))
+                font_resize = evheight / Var.display_min_height
 
             self.board.block_size = int(self.board.block_size * resize)
             if self.mode == 'ai':
@@ -250,11 +250,11 @@ class Tetris:
 
         print(width, height)
         self.board = Board(self.mode)
-        self.board.screen.fill(Var.BLACK)
+        self.board.screen.fill(Var.MAIN_VIOLET)
         resize = height / self.board.display_height
         self.vdresize2(resize, height)
         if width == Var.current_w:
-            pygame.display.set_mode((width, height), RESIZABLE).fill(Var.BLACK)
+            pygame.display.set_mode((width, height), RESIZABLE).fill(Var.MAIN_VIOLET)
         icon = pygame.image.load('assets/images/icon.PNG')  # png -> PNG로 수정
         pygame.display.set_icon(icon)
         pygame.display.set_caption('Tetris')
@@ -321,13 +321,13 @@ class Tetris:
                 # 화면 크기 조절해 보기
                 elif event.type == VIDEORESIZE:
                     info = pygame.display.Info()
-                    resize = event.w / self.board.display_width
+                    resize = event.h / self.board.display_height
 
-                    if event.h != self.board.display_height:
+                    if event.w != self.board.display_width:
                         pygame.display.set_mode((self.board.display_width, self.board.display_height), RESIZABLE)
 
                     if resize != Var.resize_basic:
-                        self.vdresize(resize, event.w)
+                        self.vdresize(resize, event.h)
                         if info.current_w == (Var.current_w):
                             pygame.display.set_mode((info.current_w, info.current_h), RESIZABLE).fill(Var.MAIN_VIOLET)
 

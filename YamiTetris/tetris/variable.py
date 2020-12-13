@@ -129,7 +129,7 @@ class Var:
 
     display_max_height = 792
     display_min_height = 450
-    bar_size = 26
+    bar_size = 50
 
     x_move_scale = 1  # 블럭의 x축 이동 수
     y_move_scale = 1  # 블럭의 y축 이동 수
