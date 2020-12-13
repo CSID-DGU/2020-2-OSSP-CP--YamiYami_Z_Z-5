@@ -148,6 +148,8 @@ class Var:
 
     board_die_num=0    # 맨 위에서 보드가 몇개 이상이면 죽을 것인지
     line_size=1      # 그림자나 블록 라인 사이즈
+    ai_matrix_line_size = 0 #ai  매트릭스를 만들때 라인 사이즈 
+    ai_line_size = 2 # ai에서 board를 나누는 선의 두꼐 
 
     fps = 30  # 게임의 fps
     initial_score = 0   # 시작 점수
@@ -167,36 +169,46 @@ class Var:
     next_block_shape = 1  #다음 회전한 모양 블럭 기준
     block_start_index = 0 #블럭 인덱스 시작점
 
-
-
-    #현재 블럭의 x축 기준 길이
+    # 현재 블럭의 x축 기준 길이
     def piece_length(piece):
         return piece[0]
 
     initial_page = 'page0'
-    initial_mode = 0 # 모드 초기값
-    initial_id = 0   # id 초기값
+    initial_mode = 0  # 모드 초기값
+    initial_id = 0  # id 초기값
 
     ai_event = pygame.USEREVENT + 1
-    ai_random_seed = 6 #ai랜덤 시드값
-    ai_stone_start_x_rate = 1/2  #x축 기준 새로운 블럭 시작 위치 비율
+    ai_diplay_width_rate = 2
+    ai_random_seed = 6  # ai랜덤 시드값
+    ai_stone_start_x_rate = 1 / 2  # x축 기준 새로운 블럭 시작 위치 비율
     ai_stone_start_y = 0  # 블록의 y좌표 시작점
-    ai_blockdown_score_per = 0  #블록을 내릴때 마다 추가되는 점수
-    ai_no_blockdown_score_per = 0  #블럭을 내리지 못하는 경우의 추가 점수
-    ai_block_choice_start = 0    #ai블럭을 선택하기 위한 시작 인덱스
-    ai_block_choice_end = len(ai_tetris_shapes)-1  #ai블럭을 선택하기 위한 끝  인덱스
-    ai_initial_completLine = 0 #ai 지운 라인수 초기값
-    ai_count_completLine = 1  #지운 라인수 증가율
-    ai_initial_numberOfHoles = 0 #구멍의 개수 초기값
-    ai_count_numberOfHoles = 1 #구멍 개수 증가율
-    ai_initial_bestscore = -10000 #베스트 스코어 초기값
-    ai_best_fix_level = 2 #ai best용 고정 레벨값
-    ai_choice_fix_level = 1 #ai choice용 고정 레벨값
-    ai_working_piece_index = 0 #현재 내려오는 블럭의 인덱스값
+    ai_blockdown_score_per = 0  # 블록을 내릴때 마다 추가되는 점수
+    ai_no_blockdown_score_per = 0  # 블럭을 내리지 못하는 경우의 추가 점수
+    ai_block_choice_start = 0  # ai블럭을 선택하기 위한 시작 인덱스
+    ai_block_choice_end = len(ai_tetris_shapes) - 1  # ai블럭을 선택하기 위한 끝  인덱스
+    ai_initial_completLine = 0  # ai 지운 라인수 초기값
+    ai_count_completLine = 1  # 지운 라인수 증가율
+    ai_initial_numberOfHoles = 0  # 구멍의 개수 초기값
+    ai_count_numberOfHoles = 1  # 구멍 개수 증가율
+    ai_initial_bestscore = -10000  # 베스트 스코어 초기값
+    ai_best_fix_level = 2  # ai best용 고정 레벨값
+    ai_choice_fix_level = 1  # ai choice용 고정 레벨값
+    ai_working_piece_index = 0  # 현재 내려오는 블럭의 인덱스값
     ai_line_reset = 0  # 한번에 지운 라인 개수 초기
-    ai_lineclear_per = 1 #한줄 지울때마다 올라가는 한번에 지운 개수
-    ai_linescores = [0, 10, 15, 20, 25] #한번에 제거하는 줄의 개수에 따른 점수
-
+    ai_lineclear_per = 1  # 한줄 지울때마다 올라가는 한번에 지운 개수
+    ai_linescores = [0, 10, 15, 20, 25]  # 한번에 제거하는 줄의 개수에 따른 점수
+    ai_draw_space = 1  # 그림, 선이 잘 보이도록 여유 공간 빼주기
+    for_index_var = 1  # 인덱스값을 맞추기 위한 변수
+    search_rotate_next_index = -1  # 다음 인덴스를 찾아가기 (뒤에서 부터)
+    last_rotate_index_prev = -1  # 마지막 인덴스의 다음 인덱스(여기 전까지 진행)
+    field_up_line = 0  # 필드의 맨 윗줄
+    ai_display_middle_rate = 0.5
+    ai_text_loc_x = 0.15  # ai상태 창에서 글씨가 시간하는 부분의 비율 (상태창길이)
+    ai_score_text_loc = 9  # 디스플에의 높이 기준, 몇번째 블럭에 해당되는 곳의 옆에 있는가 
+    ai_score_loc = 10
+    ai_said1_loc = 1
+    ai_said2_loc = 2
+ 
     user_start_speed = 600  #유저의 시작 스피드(몇초에 한번 이벤트가 진행되는가)
     AI_start_speed = int(user_start_speed / 2)   #ai의 시작 스피드
     user_per_speed = 40   #레벨에 따른 유저의 속도 증가
@@ -205,17 +217,41 @@ class Var:
     combo_max=9
     combo_reset=0
 
+    basic_block_size = 25   #미니 모드 제외 나머지의 블록 사이즈
+    basic_next_block_size_rate = 0.6  #화면에 표시되는 다음 블럭의 사이즈 비율
+    mini_block_size = int(basic_block_size*7/5)  #미니 모드의 블럭 사이즈
 
     basic_block_size = 25   #미니 모드 제외 나머지의 블록 사이즈
     basic_next_block_size_rate = 0.6  #화면에 표시되는 다음 블럭의 사이즈 비율
     mini_block_size = int(basic_block_size*7/5)  #미니 모드의 블럭 사이즈
-    min_mini_block_size = int(basic_block_size*6/5)
-    two_board_two = 2
+    min_mini_block_size = int(basic_block_size*6/5) #미니 모드의 최소 블럭사이즈
+
+    two_board_two = 2 #보드 크기가 두 배인 모드에 곱하는 용
+    center_divide = 2 # center 위치를 지정하기 위해 나누는 용
+    board_text_divide = 7 #board text 위치 조정을 위함
+    rect2_margin = 0.5 # 두번째 board칸 네모를 위한 margin
+    rect2_margin_double = rect2_margin*2 #margin 두 배
+    next_block_margin = 0.2 #next 블럭 보여줄 위치에 margin 추가
+    next_block_margin_y = 1.5 #next 블럭 y좌표를 위한 비율
+    next_block_size = 0.5 #next 블럭 사이즈 조절을 위한 비율
+    next_block2_margin = 0.45 # 두번째 next 블럭 위치 조절 비율
+
+    next_loc = 0.05
+    score_loc = 0.3
+    score_val_loc = 0.35
+    level_loc = 0.45
+    level_val_loc = 0.5
+    goal_loc = 0.6
+    goal_val_loc = 0.65
+    combo_loc = 0.75
+    combo_val_loc = 0.8
+    time_loc = 0.92
 
     font_size_small = 14    #폰트 사이즈 작은거
     font_size_middle = 16   #중간
     font_size_big = 18      #큰거
     font_resize = 1
+    font_size_double = 2 #fontsize 두 배
 
     block_start_basic_x = 3  #몇번 쨰 칸에서 블럭이 시작 하는가
     block_start_two_x = 12
@@ -247,7 +283,7 @@ class Var:
     mini_display_width = (mini_width + mini_status_size) * mini_block_size
 
     two_width = 20  # 맵의 좌에서 우로 사이즈
-    two_height = 18  # 맵git  위에서 아래로 사이즈
+    two_height = 18  # 맵 위에서 아래로 사이즈
     two_block_size = basic_block_size   # 바꾸면 맵 블럭크기 변경
     two_status_size = 8  #상태 바 사이즈 (블럭의 개수 기준으로 )
     two_display_width = (two_width + two_status_size) * two_block_size
@@ -258,12 +294,15 @@ class Var:
     ai_status_size = 5  #상태 바 사이즈 (블럭의 개수 기준으로 )
     ai_display_width = (ai_width + ai_status_size) * ai_block_size*2
 
+
     current_w = 1855
     resize_cut_up = 1.001
     resize_cut_down = 1.0
     start_status_bar_y = 0 #상태표시 바 시작 y 좌표
+    resize_basic = 1 # 리사이징 관련 고정 변수 
 
-
+######################메뉴 관련 #########################
+##########################################################################################
     ## 메뉴 부분
     ## 메뉴 이미지 추가 부분
     menu_image = pygame_menu.baseimage.BaseImage(
@@ -278,11 +317,7 @@ class Var:
     PATH=os.path.join('assets/images/메인메뉴2.png')
 
 
-    mytheme_help=pygame_menu.themes.THEME_ORANGE.copy()                  # 메뉴 기본 테마 설정
-    mytheme_help.background_color = widget_image2                           # 메뉴 배경 설정
-    mytheme_help.title_bar_style=pygame_menu.widgets.MENUBAR_STYLE_NONE  # 메뉴 타이틀 바 모양 설정
-
-
+    #메뉴 기본 테마 만들기
 
     mytheme=pygame_menu.themes.THEME_ORANGE.copy()                  # 메뉴 기본 테마 설정
     mytheme.widget_font_color=MAIN_VIOLET                         # 메뉴 위젯 폰트 컬러
@@ -292,30 +327,45 @@ class Var:
     mytheme.widget_alignment=pygame_menu.locals.ALIGN_CENTER        # 메뉴 가운데 정렬 설정
     mytheme.widget_font =pygame_menu.font.FONT_NEVIS                # 메뉴 폰트 설정
     mytheme.widget_margin=(0,40)
-    font_rate1 = 15
-    font_rate2 = 20
-    margin_rate1 = 6
-    margin_rate2 = 30
-    margin_rate3 = 15
-    margin_rate4 =600
-    margin_rate5 = 10
-    margin_rate6 = 1.25
 
-    # 메뉴 위젯 사이 간격 설정
-    size=int((menu_display_h)/font_rate1)                                      # 기본 폰트 사이즈 변경시
-    size2=int((menu_display_h)/font_rate2)                                     # 랭크창 폰트 사이즈 변경
+    #HELP 메뉴 만들
+    mytheme_help = pygame_menu.themes.THEME_ORANGE.copy()  # 메뉴 기본 테마 설정
+    mytheme_help.background_color = widget_image2  # 메뉴 배경 설정
+    mytheme_help.title_bar_style = pygame_menu.widgets.MENUBAR_STYLE_NONE  # 메뉴 타이틀 바 모양 설정
 
-    margin=int((menu_display_h)/margin_rate1)
-    margin_help=int((menu_display_h)/margin_rate6)                                     # 위에서 부터 처음 위젯 까지 사이 간격 조정
-    # 위에서 부터 처음 위젯 까지 사이 간격 조정
-    margin_page0 = int((menu_display_h) / margin_rate5)                               # 위에서 부터 처음 위젯 까지 사이 간격 조정
-    margin_page0_1 = int((menu_display_h) / margin_rate4)                                # 위에서 부터 처음 위젯 까지 사이 간격 조정
-    margin0=(-200,0)
-    margin2=(0,int((menu_display_h)/margin_rate2))                               # 게임 선택 및 랭크 선택 위젯 사이 간격
-    margin3=(0,int((menu_display_h)/margin_rate3))                               # 위젯 3개 있는 곳 사이 간격
-    margin4=(0,int((menu_display_h)/margin_rate4))
-    margin_rank =10
 
-    rank_max=5  # 랭크 보여주는 창 최대 갯수 -1
-    min_display_w =400
-    min_display_h =400
+
+    rank_id_max=3           #랭크 ID 최대 이름 수
+    rank_max=5              # 랭크 보여주는 창 최대 갯수 -1
+    min_display_w =400      # 메뉴 최소 사이즈 가로
+    min_display_h =400      # 메뉴 최소 사이즈 세로
+    widget_center = 0
+    sleep_time = 0.3
+    initial_page = 'page0'  # 메뉴 시작 페이지
+
+    # 리사이징 시 변하는 비율
+    font_rate_main = 15
+    font_rate_sub = 20
+    widget_rate_main = 15
+    widget_rate_showpage = 30
+    widget_rate_rank = 60
+    rate_main=6
+    rate_show=40
+    rate_rank=30
+    rate_help=1.25
+
+    #폰트 사이즈
+    font_main = int((menu_display_h) / font_rate_main)   # 메뉴 기본 폰트 사이즈
+    font_sub = int((menu_display_h) / font_rate_sub)     # 메뉴 서브 폰트 사이즈
+
+    # 위젯 사이 간격
+    widget_margin_main = (0,int((menu_display_h)/widget_rate_main))         #  메인 화면
+    widget_margin_showpage=(0,int((menu_display_h)/widget_rate_showpage))   #게임 선택 랭킹 선택
+    widget_margin_rank=(0,int((menu_display_h)/widget_rate_rank))           # 랭크 보기 화면
+
+    #마진 시작 가로 세로  좌표
+    margin_main = int((menu_display_h)/rate_main)   # 메인 화면
+    margin_show = int((menu_display_h)/rate_show)   #SHOW 화면
+    margin_rank =int((menu_display_h)/rate_rank)    #RANK 화면
+    margin_help=int((menu_display_h)/rate_help)     #HELP 화면
+

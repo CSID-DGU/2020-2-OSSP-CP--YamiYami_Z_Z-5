@@ -20,7 +20,7 @@
 
 3. 게임 실행 방식
    1. 현재 repository의 소스 코드를 모두 다운 또는 clone을 통해 local에 저장한다.
-   2. 추가 모듈에 표기한 모듈들을 다운 받고 menu.py에서 실행한다.
+   2. 추가 모듈에 표기한 모듈들을 다운 받고 run.py에서 실행한다.
 
 3. 조작 방식
 
@@ -90,6 +90,7 @@ AI 모드 : https://github.com/YangtaoGe518/Tetris-AI
 사운드 : https://www.bensound.com/royalty-free-music
 
 메뉴 :  https://pygame-menu.readthedocs.io/en/latest/_source/add_widgets.html
+	https://github.com/ppizarror/pygame-menu
 
 
 
