@@ -125,14 +125,11 @@ class Var:
     T_COLOR = [w_pink, w_sky, z_blue, z_green, MAIN_VIOLET, y_violet, y_red]
     colors = [BLACK, RED, GREEN, BLUE, ORANGE, YELLOW, PINK, CYON, GRAY]
 
-    #keyboard_delay = 200
-    #keyboard_interval = 150
-
     infoObject = () #디스플레이 사이즈 받는 용
 
     display_max_height = 792
     display_min_height = 450
-    bar_size = 25
+    bar_size = 26
 
     x_move_scale = 1  # 블럭의 x축 이동 수
     y_move_scale = 1  # 블럭의 y축 이동 수
@@ -322,7 +319,6 @@ class Var:
     mytheme=pygame_menu.themes.THEME_ORANGE.copy()                  # 메뉴 기본 테마 설정
     mytheme.widget_font_color=MAIN_VIOLET                         # 메뉴 위젯 폰트 컬러
     mytheme.background_color = menu_image                           # 메뉴 배경 설정
-    #mytheme.widget_background_color = widget_image                 # 메뉴 위젯 배경 설정
     mytheme.title_bar_style=pygame_menu.widgets.MENUBAR_STYLE_NONE  # 메뉴 타이틀 바 모양 설정
     mytheme.widget_alignment=pygame_menu.locals.ALIGN_CENTER        # 메뉴 가운데 정렬 설정
     mytheme.widget_font =pygame_menu.font.FONT_NEVIS                # 메뉴 폰트 설정

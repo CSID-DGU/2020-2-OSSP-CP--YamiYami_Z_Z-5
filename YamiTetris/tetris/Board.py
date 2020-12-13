@@ -46,18 +46,14 @@ class Board:
         self.generate_piece(self.mode)  # 블럭 생성 메소드 실행
         if (mode == 'two'):
             self.generate_piece2()
-        # self.database = Database()
 
         # 상태 줄 정보
-        # (self.width*self.block_size) = self.width * self.block_size
         self.start_status_bar_y = Var.start_status_bar_y
         if mode == 'two':
             self.status_width = self.block_size * self.status_size
         else:
             self.status_width = self.block_size * self.status_size
-        # (self.height*self.block_size) = self.height * self.block_size
 
-        # (self.width * self.block_size + self.display_width / 2) = self.width * self.block_size + self.display_width / 2
         self.ai_start_status_bar_y = Var.start_status_bar_y
 
         self.font_size_small_in = Var.font_size_small
@@ -618,7 +614,6 @@ class Board:
                 (self.width * self.block_size + self.display_width * Var.ai_display_middle_rate) + self.status_width * Var.ai_text_loc_x,
                 self.start_status_bar_y + self.block_size * Var.ai_score_loc))
 
-            #  self.ai_draw_matrix(self.bground_grid, (0,0))   #(0,0) 부터 내가 설정한 격자 그려주기
             self.draw_matrix(tetris.ai_board, (self.width + (self.status_width / self.block_size),
                                                Var.board_start_y))  # (0.0) 부터  보드 업데이트 해주기 
             self.draw_matrix(tetris.stone, (tetris.stone_x + self.width + (self.status_width / self.block_size),
@@ -646,13 +641,11 @@ class Board:
             for j in range(self.height + Var.for_index_var):
                 pygame.draw.line(self.screen, Var.BLACK,
                                  (self.display_width * Var.ai_display_middle_rate, (self.block_size) * j),
-                                 (
-                                 self.block_size * self.width - Var.ai_draw_space + self.display_width * Var.ai_display_middle_rate,
+                                 (self.block_size * self.width - Var.ai_draw_space + self.display_width * Var.ai_display_middle_rate,
                                  (self.block_size) * j), Var.ai_line_size)
 
     # 게임 일시정지
     def pause(self):
-
         fontObj = pygame.font.Font('assets/Roboto-Bold.ttf', self.font_size_big_in * Var.font_size_double)  # 글씨 폰트 설정
         textSurfaceObj = fontObj.render('Paused', True, Var.WHITE)  # 위 폰트로 초록색 글씨
         textRectObj = textSurfaceObj.get_rect()
@@ -660,9 +653,7 @@ class Board:
 
         # 스크린에 표시
         self.screen.blit(textSurfaceObj, textRectObj)
-        # self.screen.blit(textSurfaceObj2, textRectObj2)
         pygame.display.update()
-
         running = True
         while running:
             for event in pygame.event.get():
